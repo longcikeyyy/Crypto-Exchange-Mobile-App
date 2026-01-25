@@ -14,17 +14,20 @@ class OnboardingData {
   static final List<OnboardingData> onboardingPages = [
     OnboardingData(
       title: 'Take hold of your\nfinances',
-      description: 'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
+      description:
+          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
       imagePath: AppPath.imgPerson,
     ),
     OnboardingData(
       title: 'Smart trading tools',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget mauris massa pharetra.',
+      description:
+          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
       imagePath: AppPath.imgChart,
     ),
     OnboardingData(
       title: 'Invest in the future',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget mauris massa pharetra.',
+      description:
+          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
       imagePath: AppPath.imgComputer,
     ),
   ];
