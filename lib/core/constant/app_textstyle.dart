@@ -1,4 +1,4 @@
-import 'package:crypto_exchange_mobile_app/constant/app_color.dart';
+import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AppTextstyle {

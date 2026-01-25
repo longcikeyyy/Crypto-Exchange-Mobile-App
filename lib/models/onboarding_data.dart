@@ -1,4 +1,4 @@
-import 'package:crypto_exchange_mobile_app/constant/app_path.dart';
+import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
 
 class OnboardingData {
   final String title;
