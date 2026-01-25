@@ -20,4 +20,10 @@ class AppTextstyle {
     fontWeight: FontWeight.w400,
     color: AppColor.textColor,
   );
+  static TextStyle tsMediumSize16 = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColor.whiteColor,
+  );
 }
