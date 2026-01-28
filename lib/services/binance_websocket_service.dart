@@ -24,11 +24,34 @@ class BinanceWebsocketService {
   Stream<Coin> get tickerStream => _tickerStreamController.stream;
 
   /// Implement subscribe to ticker stream
-  Future<void> connectToTickerStream({required String symbol}) async {
+  Future<void> connectToTickerStream() async {
     try {
+      final symbols = [
+        'btcusdt',
+        'ethusdt',
+        'bnbusdt',
+        'solusdt',
+        'adausdt',
+        'xrpusdt',
+        'dotusdt',
+        'maticusdt',
+        'dogeusdt',
+        'avaxusdt',
+        'linkusdt',
+        'ltcusdt',
+        'atomusdt',
+        'nearusdt',
+        'filusdt',
+        'uniusdt',
+        'trxusdt',
+        'xlmusdt',
+        'apeusdt',
+        'egldusdt',
+      ];
+
       /// Create the full stream URL
-      final streamUrl =
-          '$_tickerBinanceWebsocketUrl${symbol.toLowerCase()}@ticker';
+      final symbolsUrl = symbols.map((s) => '$s@ticker').join('/');
+      final streamUrl = '$_tickerBinanceWebsocketUrl$symbolsUrl';
 
       /// Connect to the WebSocket channel
       _tickerWebSocketChannel = WebSocketChannel.connect(Uri.parse(streamUrl));

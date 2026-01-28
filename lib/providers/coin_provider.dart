@@ -6,23 +6,28 @@ class CoinProvider extends ChangeNotifier {
   final BinanceWebsocketRepository _binanceWebsocketRepository;
 
   CoinProvider(this._binanceWebsocketRepository) {
-    connectToTickerStream(symbol: 'btcusdt');
+    connectToTickerStream();
   }
 
   /// define state variables (loading, error, data)
   ///
-  Coin? _coinInfo;
-  Coin? get coinInfo => _coinInfo;
+  List<Coin>? _coinInfo = [];
+  List<Coin>? get coinInfo => _coinInfo;
 
   /// Functions
-  Future<void> connectToTickerStream({required String symbol}) async {
+  Future<void> connectToTickerStream() async {
     try {
       /// connect to repository
-      await _binanceWebsocketRepository.connectToTickerStream(symbol: symbol);
+      await _binanceWebsocketRepository.connectToTickerStream();
 
       /// listen to stream and update state
-      _binanceWebsocketRepository.tickerStream.listen((data) {
-        _coinInfo = data;
+      _binanceWebsocketRepository.tickerStream.listen((coin) {
+        final index = _coinInfo?.indexWhere((c) => c.symbol == coin.symbol);
+        if (index != null && index != -1) {
+          _coinInfo![index] = coin;
+        } else {
+          _coinInfo!.add(coin);
+        }
         notifyListeners();
       });
     } catch (e) {

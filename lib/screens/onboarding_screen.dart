@@ -1,5 +1,5 @@
+import 'package:crypto_exchange_mobile_app/component/app_appbar.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
-import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/models/onboarding_data.dart';
 import 'package:crypto_exchange_mobile_app/routes/app_routes.dart';
@@ -19,7 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Image.asset(AppPath.imgCoinmoney))),
+      appBar: AppAppbar(showBackButton: false),
       body: Padding(
         padding: EdgeInsets.only(bottom: 98),
         child: Column(

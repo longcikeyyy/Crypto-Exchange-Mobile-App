@@ -26,4 +26,28 @@ class AppTextstyle {
     fontWeight: FontWeight.w500,
     color: AppColor.whiteColor,
   );
+  static TextStyle tsRegularSize16Black = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColor.textColor,
+  );
+  static TextStyle tsMediumSize16Blue = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColor.blueColor,
+  );
+  static TextStyle tsRegularSize12Grey = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColor.greyColor,
+  );
+  static TextStyle tsMediumSize16Black = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColor.textColor,
+  );
 }

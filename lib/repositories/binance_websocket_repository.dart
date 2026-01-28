@@ -10,9 +10,9 @@ class BinanceWebsocketRepository {
   Stream<Coin> get tickerStream => _binanceWebsocketService.tickerStream;
 
   /// Connect to ticker stream
-  Future<void> connectToTickerStream({required String symbol}) async {
+  Future<void> connectToTickerStream() async {
     try {
-      await _binanceWebsocketService.connectToTickerStream(symbol: symbol);
+      await _binanceWebsocketService.connectToTickerStream();
     } catch (e) {
       debugPrint('Error in repository while connecting to ticker stream: $e');
       throw Exception(

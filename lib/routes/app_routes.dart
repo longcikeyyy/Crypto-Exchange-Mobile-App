@@ -1,4 +1,4 @@
-import 'package:crypto_exchange_mobile_app/screens/demo_stream/demo_stream_screen.dart';
+
 import 'package:crypto_exchange_mobile_app/screens/home/home_screen.dart';
 import 'package:crypto_exchange_mobile_app/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,6 @@ class AppRoutes {
   static Map<String, Widget Function(BuildContext)> routes = {
     AppRoutes.onboardingScreen: (context) => const OnboardingScreen(),
     AppRoutes.homeScreen: (context) => const HomeScreen(),
-    AppRoutes.demoStreamScreen: (context) => const DemoStreamScreen(),
-    AppRoutes.demoStreamScreen2: (context) => const DemoStreamScreen2(),
+    
   };
 }
