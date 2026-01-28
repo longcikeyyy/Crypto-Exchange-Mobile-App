@@ -17,11 +17,15 @@ class BinanceWebsocketService {
   WebSocketChannel? _tickerWebSocketChannel;
 
   /// Declare stream varaible
-  final StreamController<Coin> _tickerStreamController =
-      StreamController<Coin>.broadcast();
+  final StreamController<List<Coin>> _tickerStreamController =
+      StreamController<List<Coin>>.broadcast();
 
   /// Expose ticker stream
-  Stream<Coin> get tickerStream => _tickerStreamController.stream;
+  Stream<List<Coin>> get tickerStream => _tickerStreamController.stream;
+
+  final Map<String, Coin> _coinsMap = {};
+
+  List<Coin> get currentCoins => _coinsMap.values.toList();
 
   /// Implement subscribe to ticker stream
   Future<void> connectToTickerStream() async {
@@ -71,7 +75,8 @@ class BinanceWebsocketService {
         }
         // debugPrint('Ticker Stream Data: $jsonData');
         final coin = Coin.fromJson(jsonData['data']);
-        _tickerStreamController.sink.add(coin);
+        _coinsMap[coin.symbol] = coin;
+        _tickerStreamController.sink.add(_coinsMap.values.toList());
       });
     } catch (e) {
       debugPrint('Error connecting to ticker stream: $e');

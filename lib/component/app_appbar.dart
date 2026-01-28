@@ -1,5 +1,6 @@
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
+import 'package:crypto_exchange_mobile_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class AppAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -20,6 +21,15 @@ class AppAppbar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       title: Center(child: Image.asset(AppPath.imgCoinmoney)),
+      actions: [
+        GestureDetector(
+          child: Icon(Icons.settings, color: AppColor.greyColor),
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.settingScreen);
+          },
+        ),
+        SizedBox(width: 16),
+      ],
     );
   }
 

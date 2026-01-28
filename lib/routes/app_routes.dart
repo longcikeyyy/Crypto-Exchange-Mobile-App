@@ -1,6 +1,7 @@
-
+import 'package:crypto_exchange_mobile_app/screens/bottom_nav/bottom_nav_screen.dart';
 import 'package:crypto_exchange_mobile_app/screens/home/home_screen.dart';
 import 'package:crypto_exchange_mobile_app/screens/onboarding_screen.dart';
+import 'package:crypto_exchange_mobile_app/screens/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -9,11 +10,14 @@ class AppRoutes {
   static const String homeScreen = '/homeScreen';
   static const String demoStreamScreen = '/demoStreamScreen';
   static const String demoStreamScreen2 = '/demoStreamScreen2';
+  static const String bottomNav = '/bottomNav';
+  static const String settingScreen = '/settingScreen';
 
   /// routes map
   static Map<String, Widget Function(BuildContext)> routes = {
     AppRoutes.onboardingScreen: (context) => const OnboardingScreen(),
     AppRoutes.homeScreen: (context) => const HomeScreen(),
-    
+    AppRoutes.bottomNav: (context) => const BottomNavScreen(),
+    AppRoutes.settingScreen: (context) => const SettingScreen(),
   };
 }

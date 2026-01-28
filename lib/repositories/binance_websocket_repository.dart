@@ -7,7 +7,7 @@ class BinanceWebsocketRepository {
 
   BinanceWebsocketRepository(this._binanceWebsocketService);
 
-  Stream<Coin> get tickerStream => _binanceWebsocketService.tickerStream;
+  Stream<List<Coin>> get tickerStream => _binanceWebsocketService.tickerStream;
 
   /// Connect to ticker stream
   Future<void> connectToTickerStream() async {

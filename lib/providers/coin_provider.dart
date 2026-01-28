@@ -21,13 +21,8 @@ class CoinProvider extends ChangeNotifier {
       await _binanceWebsocketRepository.connectToTickerStream();
 
       /// listen to stream and update state
-      _binanceWebsocketRepository.tickerStream.listen((coin) {
-        final index = _coinInfo?.indexWhere((c) => c.symbol == coin.symbol);
-        if (index != null && index != -1) {
-          _coinInfo![index] = coin;
-        } else {
-          _coinInfo!.add(coin);
-        }
+      _binanceWebsocketRepository.tickerStream.listen((coinsList) {
+        _coinInfo = coinsList;
         notifyListeners();
       });
     } catch (e) {
