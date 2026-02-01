@@ -1,3 +1,4 @@
+import 'package:crypto_exchange_mobile_app/component/app_appbar.dart';
 import 'package:crypto_exchange_mobile_app/providers/theme_provider.dart';
 import 'package:crypto_exchange_mobile_app/screens/setting/widgets/setting_section_item_widget.dart';
 import 'package:crypto_exchange_mobile_app/screens/setting/widgets/setting_user_info_widget.dart';
@@ -11,10 +12,18 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
+      appBar: AppAppbar(
         title: Text("Settings"),
-        centerTitle: true,
-        actions: [Icon(Icons.search), SizedBox(width: 15)],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

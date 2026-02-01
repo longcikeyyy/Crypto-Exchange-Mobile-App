@@ -50,4 +50,5 @@ class AppTextstyle {
     fontWeight: FontWeight.w500,
     color: AppColor.textColor,
   );
+  
 }

@@ -75,7 +75,7 @@ class SettingSectionItemWidget extends StatelessWidget {
             },
             separatorBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10, left: 28),
-              child: Divider(height: 1, color: Color(0xFFD7D9E4)),
+              child: Divider(height: 1, color: AppColor.dividerColor),
             ),
             itemCount: items.length,
           ),

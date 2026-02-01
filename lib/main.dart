@@ -46,7 +46,7 @@ class MyAppBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: AppRoutes.bottomNav,
+      initialRoute: AppRoutes.onboardingScreen,
       routes: AppRoutes.routes,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

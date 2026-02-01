@@ -5,6 +5,7 @@ import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
+import 'package:crypto_exchange_mobile_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,18 @@ class _HomeScreenState extends State<HomeScreen> {
     debugPrint("Building HomeScreen");
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      appBar: AppAppbar(showBackButton: false),
+      appBar: AppAppbar(
+        title: Image.asset(AppPath.imgCoinmoney),
+        leading: Icon(Icons.person),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.settingScreen);
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
