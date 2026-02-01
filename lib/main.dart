@@ -1,6 +1,7 @@
 import 'package:crypto_exchange_mobile_app/core/theme/app_theme.dart';
 import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
 import 'package:crypto_exchange_mobile_app/providers/theme_provider.dart';
+import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:crypto_exchange_mobile_app/repositories/binance_websocket_repository.dart';
 import 'package:crypto_exchange_mobile_app/routes/app_routes.dart';
 import 'package:crypto_exchange_mobile_app/services/binance_websocket_service.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CoinProvider(context.read<BinanceWebsocketRepository>()),
         ),
+        ChangeNotifierProvider(create: (context) => TradeProvider()),
       ],
       child: MyAppBody(),
     );

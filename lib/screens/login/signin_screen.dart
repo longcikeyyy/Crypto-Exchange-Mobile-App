@@ -12,15 +12,15 @@ class SigninScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      appBar:AppAppbar(
-        title:Image.asset(AppPath.imgCoinmoney),
+      appBar: AppAppbar(
+        title: Image.asset(AppPath.imgCoinmoney),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
-        )
+        ),
       ),
-      body:Padding(
-        padding:  EdgeInsets.only(top: 24),
+      body: Padding(
+        padding: EdgeInsets.only(top: 24),
         child: Column(
           children: [
             Center(
@@ -30,35 +30,35 @@ class SigninScreen extends StatelessWidget {
                 style: AppTextstyle.tsSemiboldSize32,
               ),
             ),
-            SizedBox(height:16),
+            SizedBox(height: 16),
             RichTextBox(
-              icon: Icon(Icons.email,
-              color:AppColor.blueColor), 
+              icon: Icon(Icons.email, color: AppColor.blueColor),
+              title: [
+                Text("Email address", style: AppTextstyle.tsRegularSize12Grey),
+
+                Text(
+                  "tomashuk.dima.1992@gmail.com",
+                  style: AppTextstyle.tsRegularSize16Black,
+                ),
+              ],
+              boxColor: AppColor.whiteColor,
+              borderColor: AppColor.blueColor,
+            ),
+            SizedBox(height: 16),
+            RichTextBox(
+              icon: Image.asset(AppPath.icGoogle),
               title: [
                 Text(
-      "Email address",
-      style: AppTextstyle.tsRegularSize12Grey,
-    ),
-    
-    Text(
-      "tomashuk.dima.1992@gmail.com",
-      style: AppTextstyle.tsRegularSize16Black,
-    ),
-                 
-                ], 
-              boxColor: AppColor.whiteColor, 
-              borderColor: AppColor.blueColor),
-            SizedBox( height:16),
-            RichTextBox(
-              icon: Image.asset(AppPath.icGoogle), 
-              title: [Text("Continue with Google", 
-              style: AppTextstyle.tsMediumSize16Black)], 
-              boxColor: AppColor.whiteColor, 
-              borderColor: AppColor.borderColor),
-
+                  "Continue with Google",
+                  style: AppTextstyle.tsMediumSize16Black,
+                ),
+              ],
+              boxColor: AppColor.whiteColor,
+              borderColor: AppColor.borderColor,
+            ),
           ],
         ),
-      )
+      ),
     );
   }
 }
