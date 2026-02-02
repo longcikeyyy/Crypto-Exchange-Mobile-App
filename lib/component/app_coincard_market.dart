@@ -1,20 +1,17 @@
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
+import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
 import 'package:crypto_exchange_mobile_app/models/coin.dart';
 import 'package:flutter/material.dart';
 
 class AppCoinCardMarket extends StatelessWidget {
   final Coin coin;
   const AppCoinCardMarket({super.key, required this.coin});
-  String _formatPrice(String price) {
-    double priceValue = double.parse(price);
-    return priceValue.toStringAsFixed(2);
-  }
 
   @override
   Widget build(BuildContext context) {
-    final isPositive = double.parse(coin.priceChangePercent) >= 0;
+    final isPositive = FormatHelper.isPositiveChange(coin.priceChangePercent);
 
     return Container(
       height: 172,
@@ -46,7 +43,7 @@ class AppCoinCardMarket extends StatelessWidget {
                     Text(coin.symbol, style: AppTextstyle.tsRegularSize16Black),
 
                     Text(
-                      "\$${_formatPrice(coin.currentPrice)}",
+                      "\$${FormatHelper.formatPrice(coin.currentPrice)}",
                       style: AppTextstyle.tsRegularSize16Black,
                     ),
                   ],

@@ -1,13 +1,46 @@
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
+import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
+import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class TradeTokenPriceAmountWidget extends StatelessWidget {
+class TradeTokenPriceAmountWidget extends StatefulWidget {
   const TradeTokenPriceAmountWidget({super.key});
 
   @override
+  State<TradeTokenPriceAmountWidget> createState() => _TradeTokenPriceAmountWidgetState();
+}
+
+class _TradeTokenPriceAmountWidgetState extends State<TradeTokenPriceAmountWidget> {
+ 
+  List<List<String>> orderbookAsks = [];
+  List<List<String>> orderbookBids = [];
+
+  @override
   Widget build(BuildContext context) {
+    return Consumer<CoinProvider>(
+      builder: (context, coinProvider, _) {
+        final orderBookCoin = coinProvider.orderBookCoin;
+        if (orderBookCoin != null) {
+          if (orderBookCoin.asks.isNotEmpty) {
+            orderbookAsks = orderBookCoin.asks;
+          }
+          if (orderBookCoin.bids.isNotEmpty) {
+            orderbookBids = orderBookCoin.bids;
+          }
+        }
+        return _buildContent(context, orderbookAsks, orderbookBids);
+      },
+    );
+  }
+
+  Widget _buildContent(
+    BuildContext context,
+    List<List<String>> asks,
+    List<List<String>> bids,
+  ) {
     return SizedBox(
       width: (145 / 375) * context.screenWidth,
       child: Column(
@@ -82,17 +115,19 @@ class TradeTokenPriceAmountWidget extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
+                if (index >= asks.length) return SizedBox.shrink();
+                final ask = asks[index];
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "30,113.84",
+                      FormatHelper.formatPrice(ask[0]),
                       style: AppTextstyle.tsRegularSize12Grey.copyWith(
                         color: AppColor.red100,
                       ),
                     ),
                     Text(
-                      "2,20046",
+                      FormatHelper.formatPrice(ask[1]),
                       style: AppTextstyle.tsRegularSize12Grey.copyWith(
                         color: AppColor.textColor,
                       ),
@@ -111,17 +146,19 @@ class TradeTokenPriceAmountWidget extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
+                if (index >= bids.length) return SizedBox.shrink();
+                final bid = bids[index];
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "30,113.84",
+                      FormatHelper.formatPrice(bid[0]),
                       style: AppTextstyle.tsRegularSize12Grey.copyWith(
                         color: AppColor.greenColor,
                       ),
                     ),
                     Text(
-                      "2,20046",
+                      FormatHelper.formatPrice(bid[1]),
                       style: AppTextstyle.tsRegularSize12Grey.copyWith(
                         color: AppColor.textColor,
                       ),

@@ -18,6 +18,10 @@ class CoinProvider extends ChangeNotifier {
   List<OrderBookCoin>? _orderBookCoinInfo = [];
   List<OrderBookCoin>? get orderBookCoinInfo => _orderBookCoinInfo;
 
+  /// Selected coin for order book (default: BTCUSDT)
+  String _selectedOrderBookCoin = 'BTCUSDT';
+  String get selectedOrderBookCoin => _selectedOrderBookCoin;
+
   /// Connect to ticker stream
   Future<void> connectToTickerStream() async {
     try {
@@ -46,13 +50,61 @@ class CoinProvider extends ChangeNotifier {
     }
   }
 
-  /// Get all order book coins
-  List<OrderBookCoin> get allOrderBooks => _orderBookCoinInfo ?? [];
 
-/// Get first order book coin  
- OrderBookCoin? get orderBookCoin {
+
+
+  
+  ///Methods
+
+   /// Set selected order book coin symbol
+  void setSelectedOrderBookCoinSymbol(String symbol) {
+    _selectedOrderBookCoin = symbol.toUpperCase();
+    notifyListeners();
+  }
+
+  /// Get all order book coins
+  List<OrderBookCoin> get allOrderBookCoins => _orderBookCoinInfo ?? [];
+
+  /// Get order book coin for selected coin in trade screen
+  OrderBookCoin? get orderBookCoin {
     if (_orderBookCoinInfo == null || _orderBookCoinInfo!.isEmpty) return null;
-    return _orderBookCoinInfo!.first;
+    try {
+      return _orderBookCoinInfo!.firstWhere(
+        (coin) => coin.symbol.toUpperCase() == _selectedOrderBookCoin,
+      );
+    } catch (e) {
+      // If selected symbol not found, return first available
+      return _orderBookCoinInfo!.isNotEmpty ? _orderBookCoinInfo!.first : null;
+    }
+  }
+
+  /// Get order book coin by symbol
+  OrderBookCoin? getOrderBookBySymbol(String symbol) {
+    if (_orderBookCoinInfo == null || _orderBookCoinInfo!.isEmpty) return null;
+    try {
+      return _orderBookCoinInfo!.firstWhere(
+        (coin) => coin.symbol.toUpperCase() == symbol.toUpperCase(),
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Get coin info by symbol
+  Coin? getCoinBySymbol(String symbol) {
+    if (_coinInfo == null || _coinInfo!.isEmpty) return null;
+    try {
+      return _coinInfo!.firstWhere(
+        (coin) => coin.symbol.toUpperCase() == symbol.toUpperCase(),
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Get selected coin info in trade screen
+  Coin? get selectedCoinInfo {
+    return getCoinBySymbol(_selectedOrderBookCoin);
   }
   
   }

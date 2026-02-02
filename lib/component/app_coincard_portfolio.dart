@@ -1,6 +1,7 @@
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
+import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
 import 'package:crypto_exchange_mobile_app/models/coin.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +9,9 @@ class AppCoinCardPortfolio extends StatelessWidget {
   final Coin coin;
   const AppCoinCardPortfolio({super.key, required this.coin});
 
-  String _formatPrice(String price) {
-    double priceValue = double.parse(price);
-    return priceValue.toStringAsFixed(2);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final isPositive = double.parse(coin.priceChangePercent) >= 0;
+    final isPositive = FormatHelper.isPositiveChange(coin.priceChangePercent);
     return Container(
       height: 68,
       width: 347,
@@ -65,7 +61,7 @@ class AppCoinCardPortfolio extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "\$${_formatPrice(coin.currentPrice)}",
+                  "\$${FormatHelper.formatPrice(coin.currentPrice)}",
                   style: AppTextstyle.tsRegularSize16Black,
                 ),
                 SizedBox(height: 4),

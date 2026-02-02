@@ -5,6 +5,7 @@ import 'package:crypto_exchange_mobile_app/screens/login/signin_screen.dart';
 import 'package:crypto_exchange_mobile_app/screens/login/signup_screen.dart';
 import 'package:crypto_exchange_mobile_app/screens/onboarding_screen.dart';
 import 'package:crypto_exchange_mobile_app/screens/setting/setting_screen.dart';
+import 'package:crypto_exchange_mobile_app/screens/trade/trading_chart_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -18,6 +19,7 @@ class AppRoutes {
   static const String signupScreen = '/signupScreen';
   static const String accountCreationScreen = '/accountCreationScreen';
   static const String signinScreen = '/signinScreen';
+  static const String tradingChartScreen = '/tradingChartScreen';
 
   /// routes map
   static Map<String, Widget Function(BuildContext)> routes = {
@@ -28,6 +30,7 @@ class AppRoutes {
     AppRoutes.signupScreen: (context) => const SignupScreen(),
     AppRoutes.accountCreationScreen: (context) => const AccountCreationScreen(),
     AppRoutes.signinScreen: (context) => const SigninScreen(),
+    AppRoutes.tradingChartScreen: (context) => const TradingChartScreen(),
   };
 
 }

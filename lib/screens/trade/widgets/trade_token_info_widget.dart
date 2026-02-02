@@ -1,27 +1,84 @@
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
-import 'package:crypto_exchange_mobile_app/models/order_book_coin.dart';
-
+import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
 import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
+import 'package:crypto_exchange_mobile_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TradeTokenInfoWidget extends StatelessWidget {
-  final OrderBookCoin? orderBookCoin;
+  const TradeTokenInfoWidget({super.key});
 
-
-  const TradeTokenInfoWidget({super.key, this.orderBookCoin});
+  void _showCoinSelectionBottomSheet(
+    BuildContext context,
+    CoinProvider coinProvider,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Select Coin",
+                style: AppTextstyle.tsMediumSize16Black,
+              ),
+              SizedBox(height: 16),
+              Flexible(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: coinProvider.allOrderBookCoins.length,
+                  separatorBuilder: (context, index) => Divider(),
+                  itemBuilder: (context, index) {
+                    final coin = coinProvider.allOrderBookCoins[index];
+                    final isSelected = coin.symbol == coinProvider.selectedOrderBookCoin;
+                    
+                    return ListTile(
+                      title: Text(
+                        coin.symbol,
+                        style: AppTextstyle.tsRegularSize14.copyWith(
+                          color: isSelected ? AppColor.blueColor : AppColor.textColor,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                      trailing: isSelected
+                          ? Icon(Icons.check, color: AppColor.blueColor)
+                          : null,
+                      onTap: () {
+                        coinProvider.setSelectedOrderBookCoinSymbol(coin.symbol);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CoinProvider>(
       builder: (context,coinProvider,_) {
-        final OrderBookCoin = coinProvider.orderBookCoin;
+        final orderBookCoin = coinProvider.orderBookCoin;
+        final selectedCoin = coinProvider.selectedCoinInfo;
+        final isPositive = FormatHelper.isPositiveChange(selectedCoin?.priceChangePercent ?? '0');
         if (coinProvider.orderBookCoinInfo == null) {
           return SizedBox(
             child: Center(child: CircularProgressIndicator()),
           );
         }
+        
+        
+        
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,13 +88,12 @@ class TradeTokenInfoWidget extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                /// TODO: Implement logic to switch trading pairs
-                /// show bottomsheet -> display list of token pairs real time
+                _showCoinSelectionBottomSheet(context, coinProvider);
               },
               child: Row(
                 children: [
                   Text(
-                    OrderBookCoin?.symbol ?? "",
+                    orderBookCoin?.symbol ?? '',
                     style: AppTextstyle.tsRegularSize14.copyWith(
                       color: AppColor.textColor,
                     ),
@@ -52,21 +108,21 @@ class TradeTokenInfoWidget extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "\$26,345.67 ",
+                    text: "\$${FormatHelper.formatPrice(selectedCoin?.currentPrice ?? '0')}",
                     style: AppTextstyle.tsRegularSize14.copyWith(
-                      color: AppColor.greenColor,
+                      color:  isPositive ? AppColor.greenColor : AppColor.red100,
                     ),
                   ),
                   TextSpan(
-                    text: "+2.34% ",
+                    text: "≈\$${FormatHelper.formatPrice(selectedCoin?.currentPrice ?? '0')}",
                     style: AppTextstyle.tsRegularSize14.copyWith(
                       color: AppColor.greyColor,
                     ),
                   ),
                   TextSpan(
-                    text: "(\$600.00)",
+                    text: "${isPositive ? '+' : ''}${selectedCoin?.priceChangePercent}%",
                     style: AppTextstyle.tsRegularSize14.copyWith(
-                      color: AppColor.greenColor,
+                      color:  isPositive ? AppColor.greenColor : AppColor.red100,
                     ),
                   ),
                 ],
@@ -76,7 +132,7 @@ class TradeTokenInfoWidget extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            /// TODO: Implement logic navigate to Trading Chart Screen
+            Navigator.pushNamed(context, AppRoutes.tradingChartScreen);
           },
           child: Icon(Icons.search, color: AppColor.greyColor),
         ),

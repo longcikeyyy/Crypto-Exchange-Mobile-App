@@ -2,6 +2,7 @@ import 'package:crypto_exchange_mobile_app/component/app_appbar.dart';
 import 'package:crypto_exchange_mobile_app/component/app_button.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
+
 import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_buy_sell_widget.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_order_type_widget.dart';
@@ -72,7 +73,8 @@ class _TradeScreenState extends State<TradeScreen>
           Flexible(
             child: Row(
               children: [
-                TradeTokenPriceAmountWidget(),
+                TradeTokenPriceAmountWidget(
+                ),
                 SizedBox(width: 13),
                 SizedBox(
                   width: (188 / 375) * context.screenWidth,
