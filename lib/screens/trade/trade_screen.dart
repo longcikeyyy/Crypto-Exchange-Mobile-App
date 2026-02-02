@@ -1,6 +1,5 @@
 import 'package:crypto_exchange_mobile_app/component/app_appbar.dart';
 import 'package:crypto_exchange_mobile_app/component/app_button.dart';
-import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
 import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
@@ -60,6 +59,7 @@ class _TradeScreenState extends State<TradeScreen>
       },
     );
   }
+  
 
   SingleChildScrollView _buildSpotView() {
     return SingleChildScrollView(

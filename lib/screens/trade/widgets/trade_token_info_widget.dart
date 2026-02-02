@@ -1,12 +1,28 @@
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
+import 'package:crypto_exchange_mobile_app/models/order_book_coin.dart';
+import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TradeTokenInfoWidget extends StatelessWidget {
-  const TradeTokenInfoWidget({super.key});
+
+
+  const TradeTokenInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return Consumer<CoinProvider>(
+      builder: (_, tradeProvider, __) {
+        final orderBook = tradeProvider.selectedOrderBook;
+
+        // Loading state
+        if (orderBook == null) {
+          return SizedBox(
+            height: 50,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,7 +38,7 @@ class TradeTokenInfoWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "BTC/USD",
+                    orderBook.symbol,
                     style: AppTextstyle.tsRegularSize14.copyWith(
                       color: AppColor.textColor,
                     ),
@@ -68,4 +84,6 @@ class TradeTokenInfoWidget extends StatelessWidget {
       ],
     );
   }
+    );
+}
 }
