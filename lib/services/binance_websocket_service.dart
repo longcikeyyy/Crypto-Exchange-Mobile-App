@@ -42,7 +42,7 @@ class BinanceWebsocketService {
   WebSocketChannel? _tickerWebSocketChannel;
 
   ///Declare order book websocket channel variable
-  WebSocketChannel? _orderBookWebSocketChannel;
+  WebSocketChannel? _orderbookWebSocketChannel;
 
   /// Declare stream varaible
   final StreamController<List<Coin>> _tickerStreamController =
@@ -62,6 +62,7 @@ class BinanceWebsocketService {
   final Map<String, OrderBookCoin> _orderBookCoinsMap = {};
 
   List<Coin> get currentCoins => _coinsMap.values.toList();
+  List<OrderBookCoin> get currentOrderBookCoins => _orderBookCoinsMap.values.toList();
 
   /// Implement subscribe to ticker stream
   Future<void> connectToTickerStream() async {
@@ -104,21 +105,21 @@ class BinanceWebsocketService {
       final streamUrl = '$_orderBookBinanceWebsocketUrl$symbolsUrl';
 
       /// Connect to the WebSocket channel
-      _orderBookWebSocketChannel = WebSocketChannel.connect(
+      _orderbookWebSocketChannel = WebSocketChannel.connect(
         Uri.parse(streamUrl),
       );
 
       /// Listen to the stream and process incoming data
-      if (_orderBookWebSocketChannel == null) {
+      if (_orderbookWebSocketChannel == null) {
         debugPrint('WebSocket channel is not initialized');
         throw Exception('WebSocket channel is not initialized');
       }
 
-      _orderBookWebSocketChannel!.stream.listen((data) {
+      _orderbookWebSocketChannel!.stream.listen((data) {
         /// Handle incoming data
         final jsonData = jsonDecode(data);
         if (jsonData == null || jsonData['data'] == null) {
-          debugPrint('Invalid data received from ticker stream');
+          debugPrint('Invalid data received from order book stream');
           return;
         }
         // debugPrint('Ticker Stream Data: $jsonData');

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class CoinProvider extends ChangeNotifier {
   final BinanceWebsocketRepository _binanceWebsocketRepository;
 
-  
   CoinProvider(this._binanceWebsocketRepository) {
     connectToTickerStream();
     connectToOrderBookStream();
@@ -16,17 +15,8 @@ class CoinProvider extends ChangeNotifier {
   List<Coin>? _coinInfo = [];
   List<Coin>? get coinInfo => _coinInfo;
 
-  List<OrderBookCoin>? _orderBookInfo = [];
-  List<OrderBookCoin>? get orderBookInfo => _orderBookInfo;
-
-   /// ===== SELECTED SYMBOL =====
-  String _selectedSymbol = 'BTCUSDT';
-  String get selectedSymbol => _selectedSymbol;
-
-   void setSelectedSymbol(String symbol) {
-    _selectedSymbol = symbol;
-    notifyListeners();
-  }
+  List<OrderBookCoin>? _orderBookCoinInfo = [];
+  List<OrderBookCoin>? get orderBookCoinInfo => _orderBookCoinInfo;
 
   /// Connect to ticker stream
   Future<void> connectToTickerStream() async {
@@ -47,8 +37,8 @@ class CoinProvider extends ChangeNotifier {
     try {
       await _binanceWebsocketRepository.connectToOrderBookStream();
 
-      _binanceWebsocketRepository.orderBookStream.listen((orderBookList) {
-        _orderBookInfo = orderBookList;
+      _binanceWebsocketRepository.orderBookStream.listen((orderBookCoinsList) {
+        _orderBookCoinInfo = orderBookCoinsList;
         notifyListeners();
       });
     } catch (e) {
@@ -56,18 +46,19 @@ class CoinProvider extends ChangeNotifier {
     }
   }
 
- /// Get selected order book
-   OrderBookCoin? get selectedOrderBook {
-    // Kiểm tra null và empty trước
-    if (_orderBookInfo == null || _orderBookInfo!.isEmpty) {
-      return null;
-    }
-    
-    try {
-      return _orderBookInfo!.firstWhere((o) => o.symbol == _selectedSymbol);
-    } catch (e) {
-      // Nếu không tìm thấy symbol, trả về item đầu tiên
-      return _orderBookInfo!.first;
-    }
+  /// Get all order book coins
+  List<OrderBookCoin> get allOrderBooks => _orderBookCoinInfo ?? [];
+
+/// Get first order book coin  
+ OrderBookCoin? get orderBookCoin {
+    if (_orderBookCoinInfo == null || _orderBookCoinInfo!.isEmpty) return null;
+    return _orderBookCoinInfo!.first;
   }
-}
+  
+  }
+
+ 
+
+ 
+
+
