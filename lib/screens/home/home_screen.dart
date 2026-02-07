@@ -75,6 +75,17 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Consumer<CoinProvider>(
                 builder: (context, coinProvider, _) {
+                  if (coinProvider.isLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (coinProvider.errorMessage.isNotEmpty) {
+                    return Center(
+                      child: Text(
+                        coinProvider.errorMessage,
+                        style: AppTextstyle.tsMediumSize16,
+                      ),
+                    );
+                  }
                   if (coinProvider.coinInfo == null) {
                     return Center(child: CircularProgressIndicator());
                   }
