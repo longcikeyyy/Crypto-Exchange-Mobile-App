@@ -2,6 +2,7 @@ import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
 import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
+import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:crypto_exchange_mobile_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class TradeTokenInfoWidget extends StatelessWidget {
 
   void _showCoinSelectionBottomSheet(
     BuildContext context,
-    CoinProvider coinProvider,
+    TradeProvider coinProvider,
   ) {
     showModalBottomSheet(
       context: context,
@@ -70,10 +71,13 @@ class TradeTokenInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CoinProvider>(
+    return Consumer<TradeProvider>(
       builder: (context, coinProvider, _) {
         final orderBookCoin = coinProvider.orderBookCoin;
-        final selectedCoin = coinProvider.selectedOrderBookCoinInfo;
+        final coinInfo = context.read<CoinProvider>().coinInfo;
+        final selectedCoin = coinProvider.selectedOrderBookCoinInfo(
+          coinInfo ?? [],
+        );
         final isPositive = FormatHelper.isPositiveChange(
           selectedCoin?.priceChangePercent ?? '0',
         );

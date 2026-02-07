@@ -1,9 +1,9 @@
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
+import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
-import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
 import 'package:provider/provider.dart';
 
 class TradeOpenOrderSection extends StatelessWidget {
@@ -11,7 +11,7 @@ class TradeOpenOrderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coinProvider = Provider.of<CoinProvider>(context);
+    final coinProvider = Provider.of<TradeProvider>(context);
     final orderBook = coinProvider.orderBookCoin;
     final orders = <Map<String, String>>[];
     if (orderBook != null && orderBook.asks.isNotEmpty) {
@@ -160,7 +160,7 @@ class _OpenOrderCard extends StatelessWidget {
                       color: AppColor.grayColor,
                     ),
                   ),
-                  SizedBox(height:8),
+                  SizedBox(height: 8),
                   Container(
                     width: 80,
                     height: 28,

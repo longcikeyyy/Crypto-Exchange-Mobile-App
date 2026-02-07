@@ -2,7 +2,7 @@ import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
 import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
-import 'package:crypto_exchange_mobile_app/providers/coin_provider.dart';
+import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,17 +10,18 @@ class TradeTokenPriceAmountWidget extends StatefulWidget {
   const TradeTokenPriceAmountWidget({super.key});
 
   @override
-  State<TradeTokenPriceAmountWidget> createState() => _TradeTokenPriceAmountWidgetState();
+  State<TradeTokenPriceAmountWidget> createState() =>
+      _TradeTokenPriceAmountWidgetState();
 }
 
-class _TradeTokenPriceAmountWidgetState extends State<TradeTokenPriceAmountWidget> {
- 
+class _TradeTokenPriceAmountWidgetState
+    extends State<TradeTokenPriceAmountWidget> {
   List<List<String>> orderbookAsks = [];
   List<List<String>> orderbookBids = [];
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CoinProvider>(
+    return Consumer<TradeProvider>(
       builder: (context, coinProvider, _) {
         final orderBookCoin = coinProvider.orderBookCoin;
         if (orderBookCoin != null) {

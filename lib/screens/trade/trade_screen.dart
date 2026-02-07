@@ -75,6 +75,7 @@ class _TradeScreenState extends State<TradeScreen>
           SizedBox(height: 17),
           Flexible(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TradeTokenPriceAmountWidget(),
                 SizedBox(width: 13),
@@ -113,6 +114,7 @@ class _TradeScreenState extends State<TradeScreen>
                       TradeTokenQuantityWidget(volume: "1000"),
                       SizedBox(height: 16),
                       AppButton(title: 'Buy BTC'),
+                      SizedBox(height: 40),
                     ],
                   ),
                 ),

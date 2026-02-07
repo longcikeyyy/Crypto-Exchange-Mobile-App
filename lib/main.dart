@@ -35,7 +35,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CoinProvider(context.read<BinanceWebsocketRepository>()),
         ),
-        ChangeNotifierProvider(create: (context) => TradeProvider()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              TradeProvider(context.read<BinanceWebsocketRepository>()),
+        ),
       ],
       child: MyAppBody(),
     );
