@@ -35,7 +35,7 @@ class SettingSectionItemWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: AppColor.greyColor,
+              color: AppColor.grayColor,
             ),
           ),
         ),

@@ -1,10 +1,11 @@
 import 'package:crypto_exchange_mobile_app/component/app_appbar.dart';
 import 'package:crypto_exchange_mobile_app/component/app_button.dart';
+import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
-
 import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_buy_sell_widget.dart';
+import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_open_oder_section.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_order_type_widget.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_order_volume_widget.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_tab_bar_widget.dart';
@@ -23,6 +24,8 @@ class TradeScreen extends StatefulWidget {
 
 class _TradeScreenState extends State<TradeScreen>
     with SingleTickerProviderStateMixin {
+  bool _hideOtherPairs = false;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TradeProvider>(
@@ -60,21 +63,20 @@ class _TradeScreenState extends State<TradeScreen>
       },
     );
   }
-  
 
   SingleChildScrollView _buildSpotView() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TradeTokenInfoWidget(),
           SizedBox(height: 17),
           Flexible(
             child: Row(
               children: [
-                TradeTokenPriceAmountWidget(
-                ),
+                TradeTokenPriceAmountWidget(),
                 SizedBox(width: 13),
                 SizedBox(
                   width: (188 / 375) * context.screenWidth,
@@ -125,9 +127,55 @@ class _TradeScreenState extends State<TradeScreen>
               Text("More", style: AppTextstyle.tsMediumSize16Blue),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-          /// TODO: Implement Open Orders List -> show and hide other pairs
-          SizedBox(height: 1000),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Checkbox(
+                      value: _hideOtherPairs,
+                      onChanged: (value) {
+                        setState(() {
+                          _hideOtherPairs = value ?? false;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Text("Hide Other Pairs", style: AppTextstyle.tsRegularSize14),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColor.whiteColor,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.blueColor.withValues(alpha: 0.12),
+                      offset: Offset(0, 3),
+                      blurRadius: 4,
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'Cancel all',
+                  style: AppTextstyle.tsMediumSize16Black.copyWith(
+                    color: AppColor.grayColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 16),
+          if (!_hideOtherPairs) TradeOpenOrderSection(),
         ],
       ),
     );

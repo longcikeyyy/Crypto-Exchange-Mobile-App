@@ -42,7 +42,7 @@ class AppTextstyle {
     fontFamily: fontFamily,
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: AppColor.greyColor,
+    color: AppColor.grayColor,
   );
   static TextStyle tsMediumSize16Black = TextStyle(
     fontFamily: fontFamily,

@@ -18,7 +18,7 @@ class CoinProvider extends ChangeNotifier {
   List<OrderBookCoin>? _orderBookCoinInfo = [];
   List<OrderBookCoin>? get orderBookCoinInfo => _orderBookCoinInfo;
 
-  /// Selected coin for order book (default: BTCUSDT)
+  /// Selected coin for order book in trade screen (default: BTCUSDT)
   String _selectedOrderBookCoin = 'BTCUSDT';
   String get selectedOrderBookCoin => _selectedOrderBookCoin;
 
@@ -91,7 +91,7 @@ class CoinProvider extends ChangeNotifier {
   }
 
   /// Get coin info by symbol
-  Coin? getCoinBySymbol(String symbol) {
+  Coin? getOrderBookCoinBySymbol(String symbol) {
     if (_coinInfo == null || _coinInfo!.isEmpty) return null;
     try {
       return _coinInfo!.firstWhere(
@@ -103,8 +103,8 @@ class CoinProvider extends ChangeNotifier {
   }
 
   /// Get selected coin info in trade screen
-  Coin? get selectedCoinInfo {
-    return getCoinBySymbol(_selectedOrderBookCoin);
+  Coin? get selectedOrderBookCoinInfo {
+    return getOrderBookCoinBySymbol(_selectedOrderBookCoin);
   }
   
   }

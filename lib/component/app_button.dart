@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
+    this.height,
     super.key,
     required this.title,
     this.width,
@@ -21,6 +22,8 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String? prefixIconPath;
   final String? suffixIconPath;
+  
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +99,7 @@ class AppButton extends StatelessWidget {
         );
       case ButtonType.disabled:
         return AppTextstyle.tsMediumSize16Black.copyWith(
-          color: AppColor.greyColor,
+          color: AppColor.grayColor,
         );
     }
   }

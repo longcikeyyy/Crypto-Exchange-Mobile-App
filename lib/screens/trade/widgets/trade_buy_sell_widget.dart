@@ -49,7 +49,7 @@ class TradeBuySellWidget extends StatelessWidget {
               'Sell',
               textAlign: TextAlign.center,
               style: AppTextstyle.tsRegularSize14.copyWith(
-                color: AppColor.greyColor,
+                color: AppColor.grayColor,
               ),
             ),
           ),

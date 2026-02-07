@@ -24,10 +24,7 @@ class TradeTokenInfoWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                "Select Coin",
-                style: AppTextstyle.tsMediumSize16Black,
-              ),
+              Text("Select Coin", style: AppTextstyle.tsMediumSize16Black),
               SizedBox(height: 16),
               Flexible(
                 child: ListView.separated(
@@ -36,21 +33,28 @@ class TradeTokenInfoWidget extends StatelessWidget {
                   separatorBuilder: (context, index) => Divider(),
                   itemBuilder: (context, index) {
                     final coin = coinProvider.allOrderBookCoins[index];
-                    final isSelected = coin.symbol == coinProvider.selectedOrderBookCoin;
-                    
+                    final isSelected =
+                        coin.symbol == coinProvider.selectedOrderBookCoin;
+
                     return ListTile(
                       title: Text(
                         coin.symbol,
                         style: AppTextstyle.tsRegularSize14.copyWith(
-                          color: isSelected ? AppColor.blueColor : AppColor.textColor,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected
+                              ? AppColor.blueColor
+                              : AppColor.textColor,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                       trailing: isSelected
                           ? Icon(Icons.check, color: AppColor.blueColor)
                           : null,
                       onTap: () {
-                        coinProvider.setSelectedOrderBookCoinSymbol(coin.symbol);
+                        coinProvider.setSelectedOrderBookCoinSymbol(
+                          coin.symbol,
+                        );
                         Navigator.pop(context);
                       },
                     );
@@ -67,78 +71,86 @@ class TradeTokenInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CoinProvider>(
-      builder: (context,coinProvider,_) {
+      builder: (context, coinProvider, _) {
         final orderBookCoin = coinProvider.orderBookCoin;
-        final selectedCoin = coinProvider.selectedCoinInfo;
-        final isPositive = FormatHelper.isPositiveChange(selectedCoin?.priceChangePercent ?? '0');
+        final selectedCoin = coinProvider.selectedOrderBookCoinInfo;
+        final isPositive = FormatHelper.isPositiveChange(
+          selectedCoin?.priceChangePercent ?? '0',
+        );
         if (coinProvider.orderBookCoinInfo == null) {
-          return SizedBox(
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return SizedBox(child: Center(child: CircularProgressIndicator()));
         }
-        
-        
-        
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
+
+        return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _showCoinSelectionBottomSheet(context, coinProvider);
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        orderBookCoin?.symbol ?? '',
+                        style: AppTextstyle.tsRegularSize14.copyWith(
+                          color: AppColor.textColor,
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: AppColor.textColor,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text:
+                            "\$${FormatHelper.formatPrice(selectedCoin?.currentPrice ?? '0')}",
+                        style: AppTextstyle.tsRegularSize14.copyWith(
+                          color: isPositive
+                              ? AppColor.greenColor
+                              : AppColor.red100,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            "≈\$${FormatHelper.formatPrice(selectedCoin?.currentPrice ?? '0')}",
+                        style: AppTextstyle.tsRegularSize14.copyWith(
+                          color: AppColor.grayColor,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            "${isPositive ? '+' : ''}${selectedCoin?.priceChangePercent}%",
+                        style: AppTextstyle.tsRegularSize14.copyWith(
+                          color: isPositive
+                              ? AppColor.greenColor
+                              : AppColor.red100,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             GestureDetector(
               onTap: () {
-                _showCoinSelectionBottomSheet(context, coinProvider);
+                Navigator.pushNamed(context, AppRoutes.tradingChartScreen);
               },
-              child: Row(
-                children: [
-                  Text(
-                    orderBookCoin?.symbol ?? '',
-                    style: AppTextstyle.tsRegularSize14.copyWith(
-                      color: AppColor.textColor,
-                    ),
-                  ),
-                  SizedBox(width: 4),
-                  Icon(Icons.keyboard_arrow_down, color: AppColor.textColor),
-                ],
-              ),
-            ),
-            SizedBox(height: 4),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "\$${FormatHelper.formatPrice(selectedCoin?.currentPrice ?? '0')}",
-                    style: AppTextstyle.tsRegularSize14.copyWith(
-                      color:  isPositive ? AppColor.greenColor : AppColor.red100,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "≈\$${FormatHelper.formatPrice(selectedCoin?.currentPrice ?? '0')}",
-                    style: AppTextstyle.tsRegularSize14.copyWith(
-                      color: AppColor.greyColor,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "${isPositive ? '+' : ''}${selectedCoin?.priceChangePercent}%",
-                    style: AppTextstyle.tsRegularSize14.copyWith(
-                      color:  isPositive ? AppColor.greenColor : AppColor.red100,
-                    ),
-                  ),
-                ],
-              ),
+              child: Icon(Icons.show_chart, color: AppColor.grayColor),
             ),
           ],
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, AppRoutes.tradingChartScreen);
-          },
-          child: Icon(Icons.search, color: AppColor.greyColor),
-        ),
-      ],
+        );
+      },
     );
   }
-    );
-}
 }
