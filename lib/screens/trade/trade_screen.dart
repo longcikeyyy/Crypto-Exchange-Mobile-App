@@ -3,6 +3,7 @@ import 'package:crypto_exchange_mobile_app/component/app_button.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/extension/context_extension.dart';
+import 'package:crypto_exchange_mobile_app/providers/favorite_provider.dart';
 import 'package:crypto_exchange_mobile_app/providers/trade_provider.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_buy_sell_widget.dart';
 import 'package:crypto_exchange_mobile_app/screens/trade/widgets/trade_open_oder_section.dart';
@@ -35,9 +36,22 @@ class _TradeScreenState extends State<TradeScreen>
           appBar: AppAppbar(
             title: Text("Trade"),
             actions: [
-              IconButton(
-                icon: Icon(Icons.favorite_border_outlined),
-                onPressed: () {},
+              Consumer<FavoriteProvider>(
+                builder: (context, favProvider, _) {
+                  final symbol = tradeProvider.selectedOrderBookCoin;
+                  final isFav = favProvider.isFavorite(symbol);
+                  return IconButton(
+                    icon: Icon(
+                      isFav
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      color: isFav ? Colors.black : null,
+                    ),
+                    onPressed: () {
+                      favProvider.toggleSymbol(symbol);
+                    },
+                  );
+                },
               ),
             ],
           ),

@@ -12,8 +12,6 @@ class AppRoutes {
   /// Define all routes in the application
   static const String onboardingScreen = '/onboardingScreen';
   static const String homeScreen = '/homeScreen';
-  static const String demoStreamScreen = '/demoStreamScreen';
-  static const String demoStreamScreen2 = '/demoStreamScreen2';
   static const String bottomNav = '/bottomNav';
   static const String settingScreen = '/settingScreen';
   static const String signupScreen = '/signupScreen';

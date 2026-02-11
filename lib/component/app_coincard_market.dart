@@ -4,6 +4,8 @@ import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
 import 'package:crypto_exchange_mobile_app/core/helper/format_helper.dart';
 import 'package:crypto_exchange_mobile_app/models/coin.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/favorite_provider.dart';
 
 class AppCoinCardMarket extends StatelessWidget {
   final Coin coin;
@@ -41,14 +43,26 @@ class AppCoinCardMarket extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(coin.symbol, style: AppTextstyle.tsRegularSize16Black),
-
                     Text(
                       "\$${FormatHelper.formatPrice(coin.currentPrice)}",
                       style: AppTextstyle.tsRegularSize16Black,
                     ),
                   ],
                 ),
-                Image.asset(AppPath.icCoin),
+                Consumer<FavoriteProvider>(
+                  builder: (context, favProvider, _) {
+                    final isFav = favProvider.isFavorite(coin.symbol);
+                    return IconButton(
+                      icon: Icon(
+                        isFav ? Icons.favorite : Icons.favorite_border_outlined,
+                        color: isFav ? Colors.black : AppColor.grayColor,
+                      ),
+                      onPressed: () => favProvider.toggleFavorite(coin),
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                    );
+                  },
+                ),
               ],
             ),
             // Price Change Percentage
