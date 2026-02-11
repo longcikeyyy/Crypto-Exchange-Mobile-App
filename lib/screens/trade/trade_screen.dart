@@ -42,13 +42,11 @@ class _TradeScreenState extends State<TradeScreen>
                   final isFav = favProvider.isFavorite(symbol);
                   return IconButton(
                     icon: Icon(
-                      isFav
-                          ? Icons.favorite
-                          : Icons.favorite_border_outlined,
+                      isFav ? Icons.favorite : Icons.favorite_border_outlined,
                       color: isFav ? Colors.black : null,
                     ),
                     onPressed: () {
-                      favProvider.toggleSymbol(symbol);
+                      favProvider.toggleFavorite(symbol);
                     },
                   );
                 },

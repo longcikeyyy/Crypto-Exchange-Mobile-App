@@ -52,14 +52,12 @@ class AppCoinCardMarket extends StatelessWidget {
                 Consumer<FavoriteProvider>(
                   builder: (context, favProvider, _) {
                     final isFav = favProvider.isFavorite(coin.symbol);
-                    return IconButton(
-                      icon: Icon(
+                    return GestureDetector(
+                      child: Icon(
                         isFav ? Icons.favorite : Icons.favorite_border_outlined,
                         color: isFav ? Colors.black : AppColor.grayColor,
                       ),
-                      onPressed: () => favProvider.toggleFavorite(coin),
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
+                      onTap: () => favProvider.toggleFavorite(coin.symbol),
                     );
                   },
                 ),

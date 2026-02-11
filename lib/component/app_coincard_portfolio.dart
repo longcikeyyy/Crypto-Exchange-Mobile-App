@@ -42,10 +42,7 @@ class AppCoinCardPortfolio extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      coin.symbol,
-                      style: AppTextstyle.tsRegularSize16Black,
-                    ),
+                    Text(coin.symbol, style: AppTextstyle.tsRegularSize16Black),
                     SizedBox(height: 4),
                     Text(
                       "BTC",
@@ -68,7 +65,7 @@ class AppCoinCardPortfolio extends StatelessWidget {
                         isFav ? Icons.favorite : Icons.favorite_border_outlined,
                         color: isFav ? Colors.black : AppColor.grayColor,
                       ),
-                      onPressed: () => favProvider.toggleFavorite(coin),
+                      onPressed: () => favProvider.toggleFavorite(coin.symbol),
                     );
                   },
                 ),
