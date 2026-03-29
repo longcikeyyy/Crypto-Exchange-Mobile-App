@@ -5,7 +5,7 @@ class AppTheme {
   /// Dark Theme
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColor.blackColor,
+    scaffoldBackgroundColor: AppColor.blackColor100,
 
     /// color scheme -> app color
     colorScheme: ColorScheme.dark(
@@ -26,7 +26,7 @@ class AppTheme {
   /// Light Theme
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
-    scaffoldBackgroundColor: AppColor.whiteColor,
+    scaffoldBackgroundColor: AppColor.backgroundColor,
 
     /// color scheme -> app color
     colorScheme: ColorScheme.light(

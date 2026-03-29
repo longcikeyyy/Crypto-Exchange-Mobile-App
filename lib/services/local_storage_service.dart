@@ -10,6 +10,7 @@ class LocalStorageService {
   /// define keys
   static const String themeModeKey = 'themeModeKey';
   static const String onboardingKey = 'onboardingKey';
+  static const String favoriteSymbolsKey = 'favoriteSymbolsKey';
 
   /// variables
   late SharedPreferences sharedPreferences;
@@ -28,5 +29,13 @@ class LocalStorageService {
   Future<bool?> getThemeMode() async {
     // Get theme mode from local storage
     return sharedPreferences.getBool(themeModeKey);
+  }
+
+  Future<void> saveFavoriteSymbols(List<String> symbols) async {
+    await sharedPreferences.setStringList(favoriteSymbolsKey, symbols);
+  }
+
+  Future<List<String>> loadFavoriteSymbols() async {
+    return sharedPreferences.getStringList(favoriteSymbolsKey) ?? [];
   }
 }

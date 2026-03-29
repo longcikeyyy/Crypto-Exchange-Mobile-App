@@ -6,30 +6,35 @@ class CoinProvider extends ChangeNotifier {
   final BinanceWebsocketRepository _binanceWebsocketRepository;
 
   CoinProvider(this._binanceWebsocketRepository) {
-    connectToTickerStream(symbol: 'btcusdt');
+    connectToTickerStream();
   }
 
-  /// define state variables (loading, error, data)
-  ///
-  Coin? _coinInfo;
-  Coin? get coinInfo => _coinInfo;
+  /// State variables
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-  /// Functions
-  Future<void> connectToTickerStream({required String symbol}) async {
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
+
+  List<Coin>? _coinInfo = [];
+  List<Coin>? get coinInfo => _coinInfo;
+
+  /// Connect to ticker stream
+  Future<void> connectToTickerStream() async {
     try {
-      /// connect to repository
-      await _binanceWebsocketRepository.connectToTickerStream(symbol: symbol);
+      _isLoading = true;
+      notifyListeners();
+      await _binanceWebsocketRepository.connectToTickerStream();
 
-      /// listen to stream and update state
-      _binanceWebsocketRepository.tickerStream.listen((data) {
-        _coinInfo = data;
+      _binanceWebsocketRepository.tickerStream.listen((coinsList) {
+        _coinInfo = coinsList;
+        _isLoading = false;
         notifyListeners();
       });
     } catch (e) {
-      debugPrint('Error in provider while connecting to ticker stream: $e');
-      throw Exception(
-        'Error in provider while connecting to ticker stream: $e',
-      );
+      _errorMessage = 'Error connecting to ticker stream: $e';
+      notifyListeners();
+      debugPrint('Error connecting to ticker stream: $e');
     }
   }
 }

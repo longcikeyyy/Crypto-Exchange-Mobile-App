@@ -1,4 +1,5 @@
 import 'package:crypto_exchange_mobile_app/models/coin.dart';
+import 'package:crypto_exchange_mobile_app/models/order_book_coin.dart';
 import 'package:crypto_exchange_mobile_app/services/binance_websocket_service.dart';
 import 'package:flutter/material.dart';
 
@@ -7,16 +8,28 @@ class BinanceWebsocketRepository {
 
   BinanceWebsocketRepository(this._binanceWebsocketService);
 
-  Stream<Coin> get tickerStream => _binanceWebsocketService.tickerStream;
+  Stream<List<Coin>> get tickerStream => _binanceWebsocketService.tickerStream;
+  Stream<List<OrderBookCoin>> get orderBookStream => _binanceWebsocketService.orderBookStream;
 
   /// Connect to ticker stream
-  Future<void> connectToTickerStream({required String symbol}) async {
+  Future<void> connectToTickerStream() async {
     try {
-      await _binanceWebsocketService.connectToTickerStream(symbol: symbol);
+      await _binanceWebsocketService.connectToTickerStream();
     } catch (e) {
       debugPrint('Error in repository while connecting to ticker stream: $e');
       throw Exception(
         'Error in repository while connecting to ticker stream: $e',
+      );
+    }
+  }
+  /// Connect to order book stream 
+  Future<void> connectToOrderBookStream() async {
+    try {
+      await _binanceWebsocketService.connectToOrderBookStream();
+    } catch (e) {
+      debugPrint('Error in repository while connecting to order book stream: $e');
+      throw Exception(
+        'Error in repository while connecting to order book stream: $e',
       );
     }
   }

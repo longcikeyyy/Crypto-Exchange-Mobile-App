@@ -1,3 +1,5 @@
+import 'package:crypto_exchange_mobile_app/component/app_appbar.dart';
+import 'package:crypto_exchange_mobile_app/component/app_button.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_color.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_path.dart';
 import 'package:crypto_exchange_mobile_app/core/constant/app_textstyle.dart';
@@ -19,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Image.asset(AppPath.imgCoinmoney))),
+      appBar: AppAppbar(title: Image.asset(AppPath.imgCoinmoney)),
       body: Padding(
         padding: EdgeInsets.only(bottom: 98),
         child: Column(
@@ -61,33 +63,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             SizedBox(height: 24),
             // Next button
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: GestureDetector(
-                onTap: () {
-                  if (_currentPage <
-                      OnboardingData.onboardingPages.length - 1) {
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  } else {
-                    // Navigate to the next screen or perform any action
-                    Navigator.pushNamed(context, AppRoutes.homeScreen);
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                    color: AppColor.blueColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Text('Next', style: AppTextstyle.tsMediumSize16),
-                  ),
-                ),
-              ),
+            AppButton(
+              title: 'Next',
+              onTap: () {
+                if (_currentPage < OnboardingData.onboardingPages.length - 1) {
+                  _pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                } else {
+                  // Navigate to the next screen or perform any action
+                  Navigator.pushNamed(context, AppRoutes.bottomNav);
+                }
+              },
             ),
             SizedBox(height: 48),
           ],
