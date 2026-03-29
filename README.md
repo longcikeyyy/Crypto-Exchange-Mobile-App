@@ -20,6 +20,21 @@
 - State management: `bloc`/`provider`/`riverpod`/`getx` *(tuỳ dự án)*
 - Code quality: `analysis_options.yaml`
 
+## Screenshots
+
+<div align="center">
+
+![a1](assets/images/a1.png)
+![a2](assets/images/a2.png)
+![a3](assets/images/a3.png)
+![a4](assets/images/a4.png)
+![a5](assets/images/a5.png)
+![a6](assets/images/a6.png)
+![a7](assets/images/a7.png)
+![a8](assets/images/a8.png)
+
+</div>
+
 ## Project Structure
 ```text
 .
